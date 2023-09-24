@@ -3,6 +3,7 @@ package com.example.minggu5laprak
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
@@ -28,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
 
-            spannableClick(findViewById<TextView?>(R.id.already_account), "Log In")
-            spannableClick(findViewById(R.id.terms_conditions), "Terms")
-            spannableClick(findViewById(R.id.terms_conditions), "Conditions")
+            spannableClick(alreadyAccount, "Log In")
+            spannableClick(termsConditions, "Terms")
+            spannableClick(termsConditions, "Conditions")
 
             register.setOnClickListener {
                 if(editTextUsername.text.isEmpty() || editTextEmail.text.isEmpty() ||
@@ -53,20 +54,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == requestCode && resultCode == Activity.RESULT_OK) {
-            val called = data?.getBooleanExtra("callMethod", false)
-            if(called == true) {
-                resetText()
-            }
-        }
-    }
 
     private fun spannableClick(tv: TextView, clickString: String) {
         val spannableString = SpannableString(tv.text)
         val clickableSpan = object : ClickableSpan(){
             override fun onClick(widget: View) {
-                val des = "https://www.youtube.com/watch?v=ZsaPdoArcRs&list=RDGMEMhCgTQvcskbGUxqI4Sn2QYw&index=4"
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                startActivity(intent)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -81,15 +76,5 @@ class MainActivity : AppCompatActivity() {
         tv.movementMethod = LinkMovementMethod.getInstance()
 
     }
-
-    private fun resetText() {
-        with(binding) {
-            editTextUsername.text = null
-            editTextEmail.text = null
-            editTextPassword.text = null
-            editTextPhone.text = null
-        }
-    }
-
 
 }

@@ -31,8 +31,6 @@ class SecondActivity : AppCompatActivity() {
             logout.setOnClickListener {
                 val intentToFirstActivity =
                     Intent(this@SecondActivity, MainActivity::class.java)
-                intentToFirstActivity.putExtra("callMethod", true)
-                setResult(Activity.RESULT_OK, intentToFirstActivity)
                 finish()
             }
         }
